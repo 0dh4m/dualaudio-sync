@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DualAudio Sync | Sonos Play:1 & Citytek Audio Hub</title>
+    <meta name="description" content="Automatic zero-latency audio synchronizer for Sonos Play:1 (Wi-Fi) and Citytek MF109099 (Bluetooth)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ambient-glow glow-cyan"></div>
+    <div class="ambient-glow glow-amber"></div>
+    <div class="ambient-glow glow-purple"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="brand-group">
+                <div class="brand-icon">
+                    <span class="icon-waves"></span>
+                    <span class="icon-waves waves-inner"></span>
+                </div>
+                <div>
+                    <h1 class="brand-title">DualAudio <span class="gradient-text">Sync</span></h1>
+                    <p class="brand-subtitle">Automatic Zero-Latency Hub • Sonos Play:1 (Wi-Fi) + Citytek MF109099 (Bluetooth)</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="connection-pill active" id="autopilot-pill">
+                    <span class="status-indicator connected"></span>
+                    <span id="autopilot-text">Auto-Sync Active • Capturing PC Audio</span>
+                </div>
+                <button class="btn btn-glass btn-shield active" id="btn-toggle-notifs" title="Toggle Windows Notification & Click Sound Shield">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="shield-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span id="shield-status-text">Clicks & Alerts: Muted</span>
+                </button>
+                <button class="btn btn-glass" id="btn-restart-stream" title="Refresh audio streams">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    <span>Refresh Stream</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- LIVE STREAMING HERO CARD -->
+        <section class="live-hero-card glass-panel">
+            <div class="hero-left">
+                <div class="radar-circle">
+                    <span class="radar-core"></span>
+                    <span class="radar-wave wave1"></span>
+                    <span class="radar-wave wave2"></span>
+                </div>
+                <div class="hero-text">
+                    <div class="live-badge">
+                        <span class="pulse-dot"></span>
+                        <span>LIVE SYSTEM BROADCAST</span>
+                    </div>
+                    <h2 class="hero-title">Streaming All Windows Sound to Both Speakers</h2>
+                    <p class="hero-desc">Play anything on your PC (YouTube, Spotify, Browser, VLC, Games, Movies) — audio is automatically captured and broadcast in real-time to both Sonos and Citytek with zero stutter.</p>
+                    <div class="hero-features-row">
+                        <span class="feature-tag active" id="hero-shield-tag">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span id="hero-shield-text">Notification & Click Sounds Blocked</span>
+                        </span>
+                        <span class="feature-tag active">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>Hardware Pre-Amp Boost</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Stereo VU Level Meters -->
+            <div class="vu-meters-hero">
+                <div class="vu-meta">
+                    <span class="vu-title">LIVE AUDIO LEVELS</span>
+                    <span class="vu-status" id="audio-activity-status">Active Signal</span>
+                </div>
+                <div class="vu-meter-row">
+                    <span class="vu-channel">L</span>
+                    <div class="vu-bar-track">
+                        <div class="vu-bar-fill fill-cyan" id="vu-left"></div>
+                    </div>
+                </div>
+                <div class="vu-meter-row">
+                    <span class="vu-channel">R</span>
+                    <div class="vu-bar-track">
+                        <div class="vu-bar-fill fill-amber" id="vu-right"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DUAL SPEAKERS STATUS & VOLUME CARDS -->
+        <section class="speakers-grid">
+            <!-- SONOS PLAY:1 -->
+            <div class="speaker-card sonos-card glass-panel">
+                <div class="speaker-header">
+                    <div class="speaker-badge sonos-badge">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                        <span>Wi-Fi Network</span>
+                    </div>
+                    <div class="status-badge" id="sonos-status-badge">
+                        <span class="dot pulse-amber"></span>
+                        <span id="sonos-status-text">Scanning for Sonos...</span>
+                    </div>
+                </div>
+
+                <div class="speaker-info">
+                    <h3 class="speaker-name" id="sonos-device-name">Sonos Play:1</h3>
+                    <div class="speaker-ip-row">
+                        <span class="ip-label">IP Address:</span>
+                        <span class="ip-value" id="sonos-ip-display">Auto-detecting...</span>
+                        <button class="btn-icon-tiny" id="btn-edit-sonos-ip" title="Enter Sonos IP manually">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sonos Volume -->
+                <div class="volume-slider-group">
+                    <div class="volume-meta">
+                        <span class="vol-label">Sonos Volume</span>
+                        <span class="vol-val" id="sonos-vol-val">45%</span>
+                    </div>
+                    <div class="slider-row">
+                        <button class="btn-icon-mute" id="btn-sonos-mute" title="Mute Sonos">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </button>
+                        <input type="range" class="custom-slider slider-amber" id="sonos-vol-slider" min="0" max="100" value="45">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CITYTEK MF109099 -->
+            <div class="speaker-card citytek-card glass-panel">
+                <div class="speaker-header">
+                    <div class="speaker-badge citytek-badge">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6.5 6.5 17.5 17.5 12 23 12 1 17.5 6.5 6.5 17.5"></polyline></svg>
+                        <span>Bluetooth Audio</span>
+                    </div>
+                    <div class="status-badge" id="citytek-status-badge">
+                        <span class="dot pulse-cyan"></span>
+                        <span id="citytek-status-text">Connected to Windows</span>
+                    </div>
+                </div>
+
+                <div class="speaker-info">
+                    <h3 class="speaker-name">Citytek MF109099</h3>
+                    <div class="device-select-row">
+                        <label for="citytek-device-dropdown" class="select-label">Output Device:</label>
+                        <select class="custom-select" id="citytek-device-dropdown" title="Select audio output device">
+                            <option value="">Loading audio devices...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Citytek Volume -->
+                <div class="volume-slider-group">
+                    <div class="volume-meta">
+                        <span class="vol-label">Citytek Volume</span>
+                        <span class="vol-val" id="citytek-vol-val">80%</span>
+                    </div>
+                    <div class="slider-row">
+                        <button class="btn-icon-mute" id="btn-citytek-mute" title="Mute Citytek">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </button>
+                        <input type="range" class="custom-slider slider-cyan" id="citytek-vol-slider" min="0" max="100" value="80">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SYNC LATENCY CALIBRATION SECTION -->
+        <section class="sync-section glass-panel">
+            <div class="sync-header">
+                <div>
+                    <div class="sync-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span>Zero-Echo Synchronization Calibration</span>
+                    </div>
+                    <p class="sync-desc">Citytek playback is delayed by the exact buffer duration of Sonos Play:1, ensuring simultaneous acoustic output with 0ms echo.</p>
+                </div>
+                <div class="sync-actions-top">
+                    <button class="btn btn-outline" id="btn-calibrate-beat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg>
+                        <span id="calibrate-btn-text">Test Sync (Metronome Click)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="delay-slider-container">
+                <div class="delay-display-box">
+                    <span class="delay-number" id="delay-num-display">1150</span>
+                    <span class="delay-unit">ms delay</span>
+                </div>
+
+                <div class="delay-slider-track-wrap">
+                    <input type="range" class="custom-slider delay-slider" id="sync-delay-slider" min="0" max="3000" step="5" value="1150">
+                    <div class="delay-scale-markers">
+                        <span>0 ms</span>
+                        <span>500 ms</span>
+                        <span class="marker-sweet-spot">1150 ms (Pre-tuned Sweet Spot)</span>
+                        <span>2000 ms</span>
+                        <span>3000 ms</span>
+                    </div>
+                </div>
+
+                <div class="micro-adjust-buttons">
+                    <button class="btn-nudge" data-nudge="-50">-50ms</button>
+                    <button class="btn-nudge" data-nudge="-10">-10ms</button>
+                    <button class="btn-nudge btn-nudge-primary" data-nudge="preset-1150">Reset to Optimal (1150ms)</button>
+                    <button class="btn-nudge" data-nudge="+10">+10ms</button>
+                    <button class="btn-nudge" data-nudge="+50">+50ms</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- MASTER VOLUME BAR -->
+        <section class="master-bar glass-panel">
+            <div class="master-vol-title-group">
+                <button class="btn-icon-mute" id="btn-master-mute" title="Master Mute">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+                <div>
+                    <h4 class="master-title">Master Output Volume</h4>
+                    <p class="master-sub">Controls overall volume across both speakers simultaneously</p>
+                </div>
+            </div>
+
+            <div class="master-slider-wrap">
+                <div class="master-vol-info">
+                    <span>Overall Level</span>
+                    <span id="master-vol-val">100%</span>
+                </div>
+                <input type="range" class="custom-slider slider-purple" id="master-vol-slider" min="0" max="100" value="100">
+            </div>
+
+            <!-- Pre-Amp Loudness Booster -->
+            <div class="boost-selector-wrap">
+                <span class="boost-label">⚡ HARDWARE LOUDNESS BOOST:</span>
+                <div class="boost-btn-group">
+                    <button class="btn-boost" data-boost="1.0">100% (Normal)</button>
+                    <button class="btn-boost active" data-boost="1.6">160% (Loud)</button>
+                    <button class="btn-boost" data-boost="2.2">220% (Max Power)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>DualAudio Sync • Fully Automatic Synchronizer for <strong>Sonos Play:1</strong> (Wi-Fi) & <strong>Citytek MF109099</strong> (Bluetooth)</p>
+            <p class="footer-ip-note">Stream Endpoint: <code id="footer-stream-url">http://localhost:5050/stream.wav</code></p>
+        </footer>
+    </div>
+
+    <!-- MODAL: MANUAL SONOS IP -->
+    <div class="modal-overlay hide" id="modal-sonos-ip">
+        <div class="modal-box glass-panel">
+            <h3 class="modal-title">Enter Sonos Play:1 IP Address</h3>
+            <p class="modal-desc">If your Sonos is not found automatically, check its IP address in your official Sonos app (Settings > System > About My System) and enter it here:</p>
+            <input type="text" id="input-manual-ip" placeholder="e.g. 192.168.1.25" class="custom-input">
+            <div class="modal-actions">
+                <button class="btn btn-glass" id="btn-close-modal">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-manual-ip">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

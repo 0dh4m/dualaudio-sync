@@ -1,0 +1,57 @@
+{
+  "sonos_ip": "",
+  "sonos_name": "Sonos Play:1",
+  "citytek_device_name": "Headphones (MF109099)",
+  "citytek_device_index": 4,
+  "delay_ms": 1150,
+  "sonos_volume": 4,
+  "citytek_volume": 100,
+  "master_volume": 100,
+  "preamp_gain": 1.0,
+  "mute_system_notifications": true,
+  "last_source": "system",
+  "radio_stations": [
+    {
+      "name": "Hit Radio (Morocco)",
+      "url": "https://hitradio-maroc.ice.infomaniak.ch/hitradio-maroc-128.mp3",
+      "genre": "Pop / Urban / Moroccan",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Medi 1 Radio",
+      "url": "http://live.medi1.com/medi1",
+      "genre": "News / Maghreb / Variety",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Chada FM",
+      "url": "https://chadafm.ice.infomaniak.ch/chadafm-64.mp3",
+      "genre": "Moroccan Chaabi / Modern",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Radio Mars",
+      "url": "http://radiomars.ice.infomaniak.ch/radiomars-128.mp3",
+      "genre": "Sports / Football",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Radio 2M",
+      "url": "https://radio2m.ice.infomaniak.ch/radio2m-64.mp3",
+      "genre": "Music & Culture",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Aswat Radio",
+      "url": "https://aswat.ice.infomaniak.ch/aswat-high.mp3",
+      "genre": "Variety / Talk / Hits",
+      "country": "🇲🇦 المغرب"
+    },
+    {
+      "name": "Lo-Fi Beats / Chillout",
+      "url": "https://stream.zeno.fm/f3wvbbqmdg8uv",
+      "genre": "Chill / Study / Focus",
+      "country": "🌍 Global"
+    }
+  ]
+}
