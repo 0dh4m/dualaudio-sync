@@ -1,15 +1,15 @@
 @echo off
-title Install VB-CABLE Driver (Silent PC Speakers)
+title VB-Audio Virtual Cable Setup Guide
 cls
 echo ========================================================
-echo    Installing VB-Audio Virtual Cable Driver...
+echo       DualAudio Sync - Audio Routing Guide
 echo ========================================================
 echo.
-echo This tool lets your laptop speakers stay COMPLETELY SILENT
-echo while streaming sound ONLY to Sonos and Citytek in sync!
+echo For multi-device zero-latency routing on Windows, 
+echo VB-Audio Virtual Cable is recommended.
 echo.
-echo Click "Yes" on the Windows Administrator prompt,
-echo then click "Install Driver" in the window that appears.
+echo Opening the official download page in your browser...
+echo Official link: https://vb-audio.com/Cable/
 echo.
-powershell -Command "Start-Process '%~dp0vbcable\VBCABLE_Setup_x64.exe' -Verb RunAs"
+start https://vb-audio.com/Cable/
 pause
