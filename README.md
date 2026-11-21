@@ -54,10 +54,10 @@ dualaudio-sync/
 │   ├── app.js                      # Real-time state management & slider handlers
 │   └── style.css                   # Custom glowing theme & responsive styling
 ├── vbcable/                        # Bundled virtual audio driver binaries
-├── Install_Requirements.bat        # Automated Python environment dependency setup
+├── scripts/install_requirements.bat        # Automated Python environment dependency setup
 ├── Install_Virtual_Cable_Silent_PC.bat # Automated silent driver installer
-├── Start_Sync_App.bat              # One-click background launcher
-└── README_AR.md                    # Detailed documentation in Arabic
+├── scripts/start.bat              # One-click background launcher
+└── docs/README_AR.md                    # Detailed documentation in Arabic
 ```
 
 ---
@@ -73,12 +73,12 @@ dualaudio-sync/
 ### 2. Setup (One-Click)
 Run the automated installation scripts as Administrator:
 ```cmd
-Install_Requirements.bat
+scripts/install_requirements.bat
 Install_Virtual_Cable_Silent_PC.bat
 ```
 
 ### 3. Start DualAudio Sync
-Double-click `Start_Sync_App.bat` or run:
+Double-click `scripts/start.bat` or run:
 ```bash
 python app.py
 ```
