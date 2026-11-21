@@ -1,20 +1,20 @@
 @echo off
-title DualAudio Sync - تثبيت المتطلبات
+title DualAudio Sync - Python Dependencies Setup
 chcp 65001 >nul
 color 0a
 
 echo ========================================================
-echo    📦 تثبيت مكتبات بايثون لتطبيق DualAudio Sync
+echo    Installing Python dependencies for DualAudio Sync...
 echo ========================================================
 echo.
 
 python -m pip install --upgrade pip
-pip install soco flask sounddevice numpy soundfile pyaudiowpatch mutagen imageio-ffmpeg
+pip install -r "%~dp0..\requirements.txt"
 
 echo.
 echo ========================================================
-echo    ✅ تم تثبيت جميع المكتبات بنجاح!
-echo    يمكنك الآن تشغيل التطبيق عبر: Start_Sync_App.bat
+echo    Dependencies installed successfully!
+echo    You can now launch the app via: scripts\start.bat
 echo ========================================================
 echo.
 pause
