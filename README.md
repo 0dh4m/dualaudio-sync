@@ -1,4 +1,4 @@
-# 🎵 DualAudio Sync — Sub-Millisecond Multi-Device Audio Synchronizer
+# 🎵 DualAudio Sync — Millisecond-Accurate Multi-Device Audio Synchronizer
 
 <div align="center">
 
@@ -6,12 +6,13 @@
 [![Technology](https://img.shields.io/badge/Audio-WASAPI%20%7C%20UPnP%20%7C%20DLNA-7928CA?style=for-the-badge)](https://github.com/0dh4m/dualaudio-sync)
 [![Python](https://img.shields.io/badge/Backend-Python%20Flask-FF0080?style=for-the-badge&logo=python&logoColor=white)](https://github.com/0dh4m/dualaudio-sync)
 [![Hardware](https://img.shields.io/badge/Hardware-Sonos%20Play:1%20%2B%20Citytek-success?style=for-the-badge)](https://github.com/0dh4m/dualaudio-sync)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
 
-**An advanced zero-echo audio broadcasting engine bridging two fundamentally incompatible sound systems into synchronized harmony:**
-1. **Sonos Play:1**: Network Wi-Fi speaker communicating via UPnP/DLNA HTTP Audio Streams.
+**An echo-minimizing audio broadcasting engine bridging two fundamentally different sound systems:**
+1. **Sonos Play:1**: Network Wi-Fi speaker communicating via UPnP/DLNA HTTP audio streams.
 2. **Citytek MF109099**: Local speaker paired via Windows Bluetooth audio or 3.5mm AUX.
 
-[Features](#-key-features) • [How It Works](#-how-it-works) • [Web Control Deck](#-interactive-web-controller) • [Quickstart](#-installation--usage)
+[Features](#-key-features) • [How It Works](#-problem--engineering-solution) • [Repository](#-repository-structure) • [Quickstart](#-installation--usage)
 
 </div>
 
@@ -24,7 +25,7 @@ Wirelessly pairing a network Wi-Fi speaker (Sonos Play:1) with a direct Bluetoot
 **DualAudio Sync solves this through:**
 - **WASAPI Loopback Capture**: Low-overhead real-time capture of the Windows Master Audio mix.
 - **Precision Delay Line Engine**: High-resolution buffer calibration down to the millisecond (0ms – 3000ms).
-- **Synchronous Metronome Calibration**: Integrated rhythmic beat calibration pulse enabling zero-echo alignment purely by ear.
+- **Synchronous Metronome Calibration**: Integrated rhythmic beat calibration pulse enabling manual, ear-tuned echo alignment.
 - **UPnP / DLNA Local HTTP Streamer**: Transmits chunked lossless PCM/WAV streams over the local subnet directly into the Sonos UPnP media renderer.
 
 ---
@@ -33,10 +34,10 @@ Wirelessly pairing a network Wi-Fi speaker (Sonos Play:1) with a direct Bluetoot
 
 - 🖥️ **Master System Audio Broadcast (WASAPI)**: Stream any audio played on your PC (YouTube, Spotify, Netflix, games, DAW, Zoom) simultaneously to both speakers.
 - 🎵 **Drag-and-Drop Local Audio Player**: Upload and play MP3, WAV, and FLAC files with interactive seek bar, volume balance, and loop control.
-- ⏱️ **Sub-Millisecond Calibration Slider**: Smooth, real-time latency calibration slider with instant preset storage.
-- 🥁 **Acoustic Sync Metronome**: One-click sync calibration tone emitting an audio pulse every 1,000ms to dial in exact phase alignment.
-- 🌐 **Modern Glassmorphic UI**: Ultra-responsive dark control deck with live playback telemetry, speaker connection indicators, and volume master control.
-- 🚀 **Silent One-Click Setup**: Automated background Windows launchers and silent VB-Audio Virtual Cable installer.
+- ⏱️ **Millisecond Calibration Slider**: Smooth, real-time latency calibration slider (0–3000 ms) with instant preset storage.
+- 🥁 **Acoustic Sync Metronome**: One-click sync calibration tone emitting an audio pulse every 1,000 ms to dial in phase alignment.
+- 🌐 **Modern Glassmorphic UI**: Ultra-responsive dark control deck with live playback telemetry, speaker connection indicators, and master volume control.
+- 🔌 **Guided Audio Routing Setup**: Helper script that opens the official VB-Audio Virtual Cable download page when extra routing is needed.
 
 ---
 
@@ -44,20 +45,22 @@ Wirelessly pairing a network Wi-Fi speaker (Sonos Play:1) with a direct Bluetoot
 
 ```text
 dualaudio-sync/
+├── app.py                          # Root launcher (adds backend/ to sys.path)
 ├── backend/
-│   ├── app.py                      # Flask HTTP server & WebSocket event bus
-│   ├── audio_engine.py             # WASAPI Loopback buffer & delay calibration
+│   ├── app.py                      # Flask HTTP server & 350 ms status polling API
+│   ├── audio_engine.py             # WASAPI loopback capture & delay calibration
 │   ├── sonos_controller.py         # UPnP / DLNA discovery and AVTransport engine
 │   └── presets.json                # Saved speaker delay profiles
 ├── web/
-│   ├── index.html                  # Cyberpunk glassmorphic control dashboard
-│   ├── app.js                      # Real-time state management & slider handlers
-│   └── style.css                   # Custom glowing theme & responsive styling
-├── vbcable/                        # Bundled virtual audio driver binaries
-├── scripts/install_requirements.bat        # Automated Python environment dependency setup
-├── Install_Virtual_Cable_Silent_PC.bat # Automated silent driver installer
-├── scripts/start.bat              # One-click background launcher
-└── docs/README_AR.md                    # Detailed documentation in Arabic
+│   ├── index.html                  # Glassmorphic control dashboard
+│   ├── app.js                      # State polling, sliders & transport handlers
+│   └── style.css                   # Custom theme & responsive styling
+├── scripts/
+│   ├── install_requirements.bat    # Installs requirements.txt
+│   ├── install_vbcable.bat         # Opens the VB-Audio Virtual Cable page
+│   └── start.bat                   # One-click launcher
+├── docs/README_AR.md               # Detailed documentation in Arabic
+└── requirements.txt
 ```
 
 ---
@@ -66,19 +69,19 @@ dualaudio-sync/
 
 ### 1. Requirements
 - Windows 10 or 11 (64-bit).
-- Python 3.10+ installed and added to PATH.
+- **Python 3.10 – 3.12** (the code uses the `audioop` module, removed in Python 3.13).
 - Sonos Play:1 connected to your local Wi-Fi subnet.
 - Citytek speaker paired via Bluetooth or plugged into AUX.
 
 ### 2. Setup (One-Click)
-Run the automated installation scripts as Administrator:
+Run the automated installation script as Administrator:
 ```cmd
-scripts/install_requirements.bat
-Install_Virtual_Cable_Silent_PC.bat
+scripts\install_requirements.bat
 ```
+If your routing setup needs a virtual cable, run `scripts\install_vbcable.bat` — it opens the official VB-Audio download page; the driver itself must be installed manually.
 
 ### 3. Start DualAudio Sync
-Double-click `scripts/start.bat` or run:
+Double-click `scripts\start.bat` or run:
 ```bash
 python app.py
 ```
@@ -89,8 +92,14 @@ Open your browser at `http://localhost:5000` to access the Control Deck.
 ## 👤 Author & Copyright
 
 **Adham Cherkaoui Eddeqaqi (0dh4m)**  
-- 🌐 Portfolio: [0dh4m.github.io/portfolio](https://0dh4m.github.io/portfolio)
+- 🌐 Portfolio: [0dh4m.github.io](https://0dh4m.github.io/)
 - 🐙 GitHub: [@0dh4m](https://github.com/0dh4m)
 - 📧 Email: 0dh4mm@gmail.com
+
+---
+
+## 📄 License
+
+Proprietary and confidential — see [LICENSE](LICENSE). Unauthorized copying or distribution is prohibited.
 
 *Copyright © 2026 Adham Cherkaoui Eddeqaqi (0dh4m). All rights reserved.*

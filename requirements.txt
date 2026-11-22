@@ -1,2 +1,9 @@
+# DualAudio Sync — Python dependencies
+# Requires Python 3.10 – 3.12 (audioop was removed in Python 3.13)
 Flask>=2.3.0
 requests>=2.31.0
+numpy>=1.24.0
+PyAudioWPatch>=0.2.12.1
+soco>=0.30.0
+pycaw>=20240210
+comtypes>=1.2.0
